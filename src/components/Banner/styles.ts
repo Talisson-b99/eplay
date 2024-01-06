@@ -11,6 +11,12 @@ export const Imagem = styled.div`
   padding-top: 340px;
   position: relative;
 
+  .container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
   ${TagContainer} {
     position: absolute;
     top: 32px;
