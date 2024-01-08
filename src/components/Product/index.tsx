@@ -1,26 +1,32 @@
-import { Game } from '../../models/Game'
+import { Game } from '../../dtos/Game'
 import Tag from '../Tag'
 import { Card, Descricao, Infos, Titulo } from './styles'
 
 type Props = {
   game: Game
+  infos: string[]
 }
 
-const Product = ({
-  game: { category, description, image, infos, system, title }
-}: Props) => {
+const Product = ({ game, infos }: Props) => {
+  const getDescricao = (descricao: string) => {
+    if (descricao.length > 95) {
+      return descricao.slice(0, 92) + '...'
+    }
+    return descricao
+  }
   return (
-    <Card>
-      <img src={image} alt={title} />
+    <Card to={`/product/${game.id}`}>
+      <img src={game.media.thumbnail} alt={game.name} />
       <Infos>
         {infos.map((info) => (
           <Tag key={info}>{info}</Tag>
         ))}
       </Infos>
-      <Titulo>{title}</Titulo>
-      <Tag>{category}</Tag>
-      <Tag>{system}</Tag>
-      <Descricao>{description}</Descricao>
+
+      <Titulo>{game.name}</Titulo>
+      <Tag>{game.details.category}</Tag>
+      <Tag>{game.details.system}</Tag>
+      <Descricao>{getDescricao(game.description)}</Descricao>
     </Card>
   )
 }
